@@ -1,0 +1,25 @@
+//- - const days = Array.from(Array(365));
+
+doctype html
+html
+  head
+    title Piano Tracker
+    link(rel="stylesheet", href="styles.css")
+  body
+    h1.text-6xl.font-medium.text-center.mt-20.mb-10 Piano Tracker
+    .flex.justify-center
+      .day-grid.inline-grid.grid-flow-col.gap-1.p-2.border.border-gray-400.rounded(class='2xl:gap-2')
+        each day, index in self.days
+          .tooltip.text-xs.rounded-sm.cursor-default.whitespace-pre(
+            class=`h-1.5 w-1.5 sm:h-2 sm:w-2 md:h-2.5 md:w-2.5 lg:h-3 lg:w-3 xl:h-4 xl:w-4 xl:rounded 2xl:h-5 2xl:w-5 ${self.getCellColorClasses(day.amount)}` 
+            data-tooltip=`Date: ${day.date}\nTime Practiced: ${day.amount}m` 
+            tabindex="0"
+          ) &nbsp;
+
+    .mx-auto.w-max.mt-8
+      p.text-center Legend
+      each item in self.legend
+        .flex.items-center(class="gap-x-1.5")
+          .h-3.w-3.rounded-sm(class=self.getCellColorClasses(item[0]))
+          p.text-sm= item[1]
+      
