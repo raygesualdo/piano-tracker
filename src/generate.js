@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { writeFileSync, readFileSync } = require('fs')
 const { resolve } = require('path')
 const pug = require('pug')
@@ -28,6 +29,7 @@ const legend = [
   [60, '60 minutes or more'],
 ]
 
+console.log(process.env.DATASOURCE_URL)
 const html = pug.renderFile(resolve(__dirname, './index.pug'), {
   self: true,
   days,
