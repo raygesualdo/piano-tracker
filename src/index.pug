@@ -1,36 +1,45 @@
-//- - const days = Array.from(Array(365));
-
 doctype html
 html
   head
-    title Tracker
-    link(rel="stylesheet", href="styles.css")
+    meta(charset='utf-8')
+    title Piano Tracker
+    meta(name='description' content='Visualize my progress parcticing the piano in 2021.')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    //- meta(property='og:title' content='')
+    //- meta(property='og:type' content='')
+    //- meta(property='og:url' content='')
+    //- meta(property='og:image' content='')
+    //- link(rel='manifest' href='site.webmanifest')
+    //- link(rel='apple-touch-icon' href='icon.png')
+    link(rel='stylesheet', href='styles.css')
+    //- meta(name='theme-color' content='#fafafa')
   body
-    h1.font-medium.text-center.mt-20.mb-10(
-      class='text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl'
+    h1(
+      class='font-medium text-center mt-20 mb-10 text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl'
     ) Tracker
-    .flex.justify-center
-      .p-4.border.border-gray-400.rounded.w-min
-        .month-grid.grid.gap-1.-mt-1(class='2xl:gap-2 text-xs md:text-sm xl:text-base')
-          .month.col-span-5 Jan
-          .month.col-span-4 Feb
-          .month.col-span-4 Mar
-          .month.col-span-4 Apr
-          .month.col-span-5 May
-          .month.col-span-4 Jun
-          .month.col-span-4 Jul
-          .month.col-span-5 Aug
-          .month.col-span-4 Sep
-          .month.col-span-5 Oct
-          .month.col-span-4 Nov
-          .month.col-span-4 Dec
-        .day-grid.inline-grid.grid-flow-col.gap-1(class='2xl:gap-2')
-          each day, index in self.days
-            .text-xs.rounded-sm.cursor-default.whitespace-pre(
-              class=`h-1.5 w-1.5 sm:h-2 sm:w-2 md:h-2.5 md:w-2.5 lg:h-3 lg:w-3 xl:h-4 xl:w-4 xl:rounded 2xl:h-5 2xl:w-5 ${self.getCellColorClasses(day.amount)}` 
-              data-tooltip=`Date: ${day.date}\nTime Practiced: ${day.amount}m` 
-              tabindex="0"
-            ) &nbsp;
+    .px-1
+      .border.border-gray-400.rounded.w-full.mx-auto.max-w-min.overflow-auto(class='sm:overflow-visible sm:w-auto')
+        .w-min.p-4
+          .month-grid
+            .col-span-5 Jan
+            .col-span-4 Feb
+            .col-span-4 Mar
+            .col-span-4 Apr
+            .col-span-5 May
+            .col-span-4 Jun
+            .col-span-4 Jul
+            .col-span-5 Aug
+            .col-span-4 Sep
+            .col-span-5 Oct
+            .col-span-4 Nov
+            .col-span-4 Dec
+          .day-grid
+            each day, index in self.days
+              .day(
+                class=self.getCellColorClasses(day.amount) 
+                data-tooltip=`Date: ${day.date}\nTime Practiced: ${day.amount}m` 
+                tabindex="0"
+              ) &nbsp;
 
     .mx-auto.w-max.mt-8
       p(class='text-center text-sm md:text-base') Legend
@@ -38,4 +47,7 @@ html
         .flex.items-center(class="gap-x-1.5")
           .h-3.w-3.rounded-sm(class=self.getCellColorClasses(item[0]))
           p(class='text-xs md:text-sm')= item[1]
+
+    .absolute.bottom-2.w-full.text-xs.text-center.text-gray-600.px-2
+      | Made with ❤️ by #[a.text-blue-500.underline(href="https://www.raygesualdo.com") Ray Gesualdo] | Open sourced on #[a.text-blue-500.underline(href="https://github.com/raygesualdo/piano-tracker") GitHub]
       

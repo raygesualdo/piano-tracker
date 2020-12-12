@@ -2,11 +2,18 @@
 @tailwind components;
 
 .month-grid {
+  @apply grid gap-1 -mt-1 -mb-4 2xl:gap-2 text-xs md:text-sm xl:text-base;
   grid-template-columns: repeat(53, 1fr);
 }
 
 .day-grid {
+  @apply inline-grid grid-flow-col gap-1 2xl:gap-2;
   grid-template-rows: repeat(7, min-content);
+}
+
+.day {
+  @apply rounded-sm cursor-default h-1.5 w-1.5 sm:h-2 sm:w-2 md:h-2.5 md:w-2.5 lg:h-3 lg:w-3 xl:h-4 xl:w-4 xl:rounded 2xl:h-5 2xl:w-5;
+  font-size: 0;
 }
 
 [data-tooltip] {
@@ -15,7 +22,7 @@
 
 [data-tooltip]::before {
   content: attr(data-tooltip);
-  @apply absolute rounded-lg p-2 bg-gray-900 text-white text-center hidden z-10 mb-2 bottom-full left-1/2 w-48 transform -translate-x-1/2 pointer-events-none;
+  @apply absolute rounded-lg p-2 text-xs whitespace-pre bg-gray-900 text-white text-center hidden z-10 mb-2 bottom-full left-1/2 w-40 transform -translate-x-1/2 pointer-events-none;
 }
 
 [data-tooltip]::after {
