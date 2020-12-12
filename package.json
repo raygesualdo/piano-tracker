@@ -2,7 +2,7 @@
   "scripts": {
     "tailwind:build": "tailwind build src/styles.css -o build/styles.css",
     "tailwind:watch": "chokidar 'src/*.css' -c 'npm run tailwind:build'",
-    "generate:start": "nodemon --watch src -e js,pug src/generate.js",
+    "generate:start": "nodemon --watch src -e js,pug,json src/generate.js",
     "generate:build": "node src/generate.js",
     "serve": "serve build",
     "start": "npm-run-all tailwind:build --parallel tailwind:watch generate:start serve",
