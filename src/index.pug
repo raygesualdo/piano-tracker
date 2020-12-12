@@ -12,7 +12,7 @@ html
       class='font-medium text-center mt-20 mb-10 text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl'
     ) Piano Tracker
     .px-1
-      .border.border-gray-400.rounded.w-full.mx-auto.max-w-min.overflow-auto(class='sm:overflow-visible sm:w-auto')
+      div(class='border border-gray-400 rounded w-full mx-auto max-w-min overflow-auto sm:overflow-visible sm:w-auto')
         .w-min.p-4
           .month-grid
             .col-span-5 Jan
@@ -31,14 +31,14 @@ html
             each day, index in self.days
               .day(
                 class=self.getCellColorClasses(day.amount) 
-                data-tooltip=`Date: ${day.date}\nTime Practiced: ${day.amount}m` 
+                data-tooltip=`${self.formatDate(day.date)}\n⏱ ${day.amount}m` 
                 tabindex="0"
               ) &nbsp;
 
     .mx-auto.w-max.mt-8
       p(class='text-center text-sm md:text-base') Legend
       each item in self.legend
-        .flex.items-center(class="gap-x-1.5")
+        div(class="flex items-center gap-x-1.5")
           .h-3.w-3.rounded-sm(class=self.getCellColorClasses(item[0]))
           p(class='text-xs md:text-sm')= item[1]
 

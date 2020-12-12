@@ -22,7 +22,7 @@
 
 [data-tooltip]::before {
   content: attr(data-tooltip);
-  @apply absolute rounded-lg p-2 text-xs whitespace-pre bg-gray-900 text-white text-center hidden z-10 mb-2 bottom-full left-1/2 w-40 transform -translate-x-1/2 pointer-events-none;
+  @apply absolute rounded-lg py-1 px-2 text-xs whitespace-pre bg-gray-900 text-white text-center hidden z-10 mb-2 bottom-full left-1/2 w-40 transform -translate-x-1/2 pointer-events-none;
 }
 
 [data-tooltip]::after {

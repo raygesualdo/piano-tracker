@@ -5,6 +5,16 @@ const pug = require('pug')
 
 const write = (path, contents) => writeFileSync(path, contents, 'utf-8')
 
+const formatDate = (isoDate) => {
+  const date = new Date(isoDate)
+  return date.toLocaleDateString('en-US', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
 const getCellColorClasses = (time) => {
   if (!time) return 'bg-gray-100 border border-gray-300'
   if (time < 20) return 'bg-green-200'
@@ -29,6 +39,7 @@ const legend = [
     days,
     getCellColorClasses,
     legend,
+    formatDate,
   })
   write(resolve(__dirname, '../build/index.html'), html)
   console.log('HTML successfully generated.')
