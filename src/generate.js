@@ -6,7 +6,7 @@ const read = (path) => readFileSync(path, 'utf-8')
 const write = (path, contents) => writeFileSync(path, contents, 'utf-8')
 
 const days = Array.from(Array(365)).map((_, index) => {
-  const baseDate = new Date(2020, 0, 1)
+  const baseDate = new Date(2021, 0, 1)
   baseDate.setDate(baseDate.getDate() + index)
   const date = baseDate.toISOString().slice(0, 10)
   return { date, amount: (index % 5) * 15 }
