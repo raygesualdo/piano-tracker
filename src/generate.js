@@ -1,17 +1,9 @@
 require('dotenv').config()
-const { writeFileSync, readFileSync } = require('fs')
+const { writeFileSync, existsSync: exists } = require('fs')
 const { resolve } = require('path')
 const pug = require('pug')
 
-const read = (path) => readFileSync(path, 'utf-8')
 const write = (path, contents) => writeFileSync(path, contents, 'utf-8')
-
-const days = Array.from(Array(365)).map((_, index) => {
-  const baseDate = new Date(2021, 0, 1)
-  baseDate.setDate(baseDate.getDate() + index)
-  const date = baseDate.toISOString().slice(0, 10)
-  return { date, amount: (index % 5) * 15 }
-})
 
 const getCellColorClasses = (time) => {
   if (!time) return 'bg-gray-100 border border-gray-300'
@@ -29,13 +21,56 @@ const legend = [
   [60, '60 minutes or more'],
 ]
 
-console.log(process.env.DATASOURCE_URL)
-const html = pug.renderFile(resolve(__dirname, './index.pug'), {
-  self: true,
-  days,
-  getCellColorClasses,
-  legend,
-})
-// console.log(html)
-write(resolve(__dirname, '../build/index.html'), html)
-console.log('HTML successfully generated.')
+// Execute
+;(async function () {
+  const days = await getDays()
+  const html = pug.renderFile(resolve(__dirname, './index.pug'), {
+    self: true,
+    days,
+    getCellColorClasses,
+    legend,
+  })
+  write(resolve(__dirname, '../build/index.html'), html)
+  console.log('HTML successfully generated.')
+})()
+
+async function getDays() {
+  if (exists(resolve(__dirname, './data.json'))) {
+    return require(resolve(__dirname, './data.json'))
+  }
+  return fetchData()
+}
+
+async function fetchData() {
+  const url = process.env.DATASOURCE_URL
+  try {
+    const response = await getJSON(url)
+    return response.values.map(([date, amount = 0]) => ({ date, amount }))
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+function getJSON(url) {
+  return new Promise((resolve, reject) => {
+    const https = require('https')
+
+    https.get(url, (res) => {
+      res.setEncoding('utf8')
+      let body = ''
+
+      res.on('data', (data) => {
+        body += data
+      })
+
+      res.on('end', () => {
+        body = JSON.parse(body)
+        resolve(body)
+      })
+
+      res.on('error', (err) => {
+        reject(err)
+      })
+    })
+  })
+}
