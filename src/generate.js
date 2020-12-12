@@ -45,7 +45,10 @@ async function fetchData() {
   const url = process.env.DATASOURCE_URL
   try {
     const response = await getJSON(url)
-    return response.values.map(([date, amount = 0]) => ({ date, amount }))
+    return response.values.map(([date, amount = 0]) => ({
+      date,
+      amount: Number.parseInt(amount, 10),
+    }))
   } catch (error) {
     throw new Error(error)
   }
