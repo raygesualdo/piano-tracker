@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "tailwind:build": "tailwind build src/styles.css -o build/styles.css",
+    "tailwind:build": "postcss src/styles.css -o build/styles.css",
     "tailwind:watch": "chokidar 'src/*.css' -c 'npm run tailwind:build'",
     "generate:start": "nodemon --watch src -e js,pug,json src/generate.js",
     "generate:build": "node src/generate.js",
@@ -11,8 +11,10 @@
     "postbuild": "cp public/* build/"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^3.0.0",
     "autoprefixer": "^9.8.6",
     "chokidar-cli": "^2.1.0",
+    "cssnano": "^4.1.10",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
