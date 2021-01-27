@@ -31,7 +31,7 @@ html
             each day, index in self.days
               .day(
                 class=self.getCellColorClasses(day.amount) 
-                data-tooltip=`${self.formatDate(day.date)}\n⏱ ${day.amount}m` 
+                data-tooltip=(day.amount != null && day.amount >= 0) ? `${self.formatDate(day.date)}\n⏱ ${day.amount}m` : false
                 tabindex="0"
               ) &nbsp;
 
