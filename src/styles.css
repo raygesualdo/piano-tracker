@@ -16,6 +16,7 @@
   font-size: 0;
 }
 
+/* purgecss start ignore */
 [data-tooltip] {
   @apply relative;
 }
@@ -39,5 +40,6 @@
 [data-tooltip]:focus::before {
   @apply block;
 }
+/* purgecss end ignore */
 
 @tailwind utilities;
