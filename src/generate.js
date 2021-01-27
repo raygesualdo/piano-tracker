@@ -16,7 +16,9 @@ const formatDate = (isoDate) => {
 }
 
 const getCellColorClasses = (time) => {
-  if (!time) return 'bg-gray-100 border border-gray-300'
+  if (time == null) return 'border border-gray-300'
+  if (time < 0) return 'bg-blue-200'
+  if (time === 0) return 'bg-gray-100 border border-gray-300'
   if (time < 20) return 'bg-green-200'
   if (time < 40) return 'bg-green-400'
   if (time < 60) return 'bg-green-600'
@@ -29,6 +31,8 @@ const legend = [
   [30, 'Less than 40 minutes'],
   [45, 'Less than 60 minutes'],
   [60, '60 minutes or more'],
+  [-1, 'Could not play'],
+  [undefined, 'Future date'],
 ]
 
 // Execute
@@ -56,9 +60,9 @@ async function fetchData() {
   const url = process.env.DATASOURCE_URL
   try {
     const response = await getJSON(url)
-    return response.values.map(([date, amount = 0]) => ({
+    return response.values.map(([date, amount]) => ({
       date,
-      amount: Number.parseInt(amount, 10),
+      amount: amount ? Number.parseInt(amount, 10) : amount,
     }))
   } catch (error) {
     throw new Error(error)
